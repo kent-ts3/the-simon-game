@@ -1,7 +1,8 @@
 var buttonColours = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
-
+var level = 0;
+var gameStarted = false;
 
 
 function nextSequence() {
@@ -18,6 +19,7 @@ function nextSequence() {
 
 }
 
+// Detect user button clicks
 $(".btn").click(function(){
 
     var userChosenColour = $(this).attr("id");
@@ -26,7 +28,18 @@ $(".btn").click(function(){
     playSound(userChosenColour);
     animatePress(userChosenColour);
 
+    checkAnswer(userClickedPattern.length - 1);
+
 });
+
+// Detect key press to start game
+$(document).on("keydown", function() {
+    nextSequence();
+
+    $("#level-title").text("Level " + level);
+    
+});
+
 
 // Play sound of colour
 function playSound(name) {
@@ -42,4 +55,20 @@ function animatePress(currentColour) {
         $("#" + currentColour).removeClass("pressed");
     }, 100);
 
+}
+
+
+function checkAnswer(currentLevel) {
+    if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
+        
+        if (userClickedPattern.length === gamePattern.length) {
+            setTimeout(function () {
+                nextSequence();
+                userClickedPattern = [];
+            }, 1000);
+        }
+
+    } else {
+        console.log("wrong");
+    }
 }
