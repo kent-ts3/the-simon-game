@@ -12,7 +12,7 @@ function nextSequence() {
     gamePattern.push(randomChosenColour);
     
     // Add flash animation to chosen colour
-    $("#"+randomChosenColour).fadeOut(100).fadeIn(100);
+    $("#" + randomChosenColour).fadeOut(100).fadeIn(100);
 
     playSound(randomChosenColour);
 
@@ -22,9 +22,9 @@ $(".btn").click(function(){
 
     var userChosenColour = $(this).attr("id");
     userClickedPattern.push(userChosenColour);
-    console.log(userClickedPattern);
 
     playSound(userChosenColour);
+    animatePress(userChosenColour);
 
 });
 
@@ -32,4 +32,14 @@ $(".btn").click(function(){
 function playSound(name) {
     var colourSound  = new Audio("sounds/" + name + ".mp3");
     colourSound.play();
+}
+
+// Animate user clicks
+function animatePress(currentColour) {
+    $("#" + currentColour).addClass("pressed");
+
+    setTimeout(function() {
+        $("#" + currentColour).removeClass("pressed");
+    }, 100);
+
 }
