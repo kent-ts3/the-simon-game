@@ -14,8 +14,7 @@ function nextSequence() {
     // Add flash animation to chosen colour
     $("#"+randomChosenColour).fadeOut(100).fadeIn(100);
 
-    var soundTest  = new Audio("sounds/" + randomChosenColour + ".mp3");
-    soundTest.play();
+    playSound(randomChosenColour);
 
 }
 
@@ -25,4 +24,12 @@ $(".btn").click(function(){
     userClickedPattern.push(userChosenColour);
     console.log(userClickedPattern);
 
+    playSound(userChosenColour);
+
 });
+
+// Play sound of colour
+function playSound(name) {
+    var colourSound  = new Audio("sounds/" + name + ".mp3");
+    colourSound.play();
+}
